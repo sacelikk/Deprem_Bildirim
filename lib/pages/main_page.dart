@@ -109,7 +109,9 @@ class MyListWievBuilder extends StatelessWidget {
                       onTap: () {
                         Navigator.push(
                           context,
-                          MaterialPageRoute(builder: (context) => MapScreen()),
+                          MaterialPageRoute(
+                            builder: (context) => MapScreen(deprem: deprem),
+                          ),
                         );
                       },
                     ),
