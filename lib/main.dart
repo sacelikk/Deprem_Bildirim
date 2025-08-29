@@ -14,6 +14,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(home: MapScreen());
+    return MaterialApp(home: MainPage());
   }
 }

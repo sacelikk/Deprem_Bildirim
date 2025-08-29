@@ -1,5 +1,7 @@
+import 'package:deprem_project/Models/Deprem.dart';
 import 'package:deprem_project/pages/ayarlar_sayfasi.dart';
 import 'package:deprem_project/pages/deprem_sayfasi.dart';
+import 'package:dio/dio.dart';
 
 import 'package:flutter/material.dart';
 
@@ -26,13 +28,6 @@ class _MainPageState extends State<MainPage> {
               MaterialPageRoute(builder: (context) => Ayarlar_Sayfasi()),
             );
           }
-
-          if (value == 2) {
-            Navigator.push(
-              context,
-              MaterialPageRoute(builder: (context) => MapScreen()),
-            );
-          }
         },
         items: [
           BottomNavigationBarItem(label: "Deprem", icon: Icon(Icons.list_alt)),
@@ -56,48 +51,75 @@ class _MainPageState extends State<MainPage> {
 class MyListWievBuilder extends StatelessWidget {
   final List<int> items = List.generate(20, (index) => index);
   MyListWievBuilder({super.key});
+  Future<List<Deprem>> _getDeprems() async {
+    final dio = Dio();
+    var url = "https://api.orhanaydogdu.com.tr/deprem/kandilli/live";
+    var response = await dio.get(url);
+
+    if (response.statusCode == 200) {
+      final List<dynamic> data = response.data["result"];
+      return data.map((e) => Deprem.fromJson(e)).toList();
+    } else {
+      return [];
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
-    return ListView.builder(
-      itemCount: items.length,
-      itemBuilder: (context, index) {
-        int value = items[index];
-        return Card(
-          child: Container(
-            height: 100,
-            child: Center(
-              child: ListTile(
-                onTap: () {
-                  Navigator.push(
-                    context,
-                    MaterialPageRoute(builder: (context) => MapScreen()),
-                  );
-                  debugPrint("iceriğe basildi");
-                },
-                title: Text(value.toString(), style: TextStyle(fontSize: 25)),
-                subtitle: Text("sub title"),
-                leading: CircleAvatar(
-                  radius: 30,
-
-                  backgroundColor: value > 5
-                      ? Colors.red.shade200
-                      : Colors.green.shade200,
-                  child: Text(
-                    value.toString(),
-                    style: TextStyle(
-                      color: value > 5
-                          ? Colors.red.shade900
-                          : Colors.green.shade900,
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      title: "Deprem Verileri",
+      theme: ThemeData.dark(useMaterial3: true),
+      home: Scaffold(
+        body: FutureBuilder<List<Deprem>>(
+          future: _getDeprems(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(child: CircularProgressIndicator());
+            } else if (snapshot.hasError) {
+              return Center(child: Text("Hata: ${snapshot.error}"));
+            } else if (!snapshot.hasData || snapshot.data!.isEmpty) {
+              return const Center(child: Text("Deprem verisi bulunamadı"));
+            } else {
+              final depremler = snapshot.data!;
+              return ListView.builder(
+                itemCount: depremler.length,
+                itemBuilder: (context, index) {
+                  final deprem = depremler[index];
+                  return Card(
+                    margin: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 6,
                     ),
-                  ),
-                ),
-                trailing: Icon(size: 30, Icons.arrow_forward_ios),
-              ),
-            ),
-          ),
-        );
-      },
+                    child: ListTile(
+                      leading: CircleAvatar(
+                        backgroundColor: deprem.mag >= 5
+                            ? Colors.red
+                            : Colors.orange,
+                        child: Text(
+                          deprem.mag.toString(),
+                          style: const TextStyle(color: Colors.white),
+                        ),
+                      ),
+                      title: Text(deprem.title),
+                      subtitle: Text(
+                        "Derinlik: ${deprem.depth} km\nTarih: ${deprem.date}",
+                      ),
+                      isThreeLine: true,
+                      onTap: () {
+                        Navigator.push(
+                          context,
+                          MaterialPageRoute(builder: (context) => MapScreen()),
+                        );
+                      },
+                    ),
+                  );
+                },
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }
