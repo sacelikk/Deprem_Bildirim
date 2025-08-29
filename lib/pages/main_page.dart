@@ -1,5 +1,6 @@
 import 'package:deprem_project/pages/ayarlar_sayfasi.dart';
 import 'package:deprem_project/pages/deprem_sayfasi.dart';
+
 import 'package:flutter/material.dart';
 
 class MainPage extends StatefulWidget {
