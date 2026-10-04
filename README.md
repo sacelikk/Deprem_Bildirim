@@ -1,48 +1,34 @@
-🌍 Deprem Bildirim
-Türkiye ve çevre bölgelerdeki sismik hareketleri anlık olarak takip etmek, deprem verilerini harita üzerinde konumlandırmak ve kullanıcılara hızlı bilgilendirme sağlamak amacıyla geliştirilmiş çok platformlu bir mobil/web uygulamasıdır.
+🌍 Earthquake Notification (Deprem Bildirim)
+A cross-platform mobile and web application developed to instantly track seismic activities in Turkey and surrounding regions, visualize earthquake data on a map, and provide quick notifications to users.
 
-📱 Özellikler
-Canlı Harita Entegrasyonu: Gerçekleşen sarsıntıların merkez üssünü, büyüklüğü ve derinliğini harita üzerinde görselleştirme.
+📱 Features
+Live Map Integration: Visualizes the epicenter, magnitude, and depth of recent earthquakes directly on an interactive map.
+Quick Refresh / Restart: Includes reset and restart controls that allow fast transitions between screens and data streams.
+Cross-Platform Support: A flexible infrastructure built with Flutter that runs smoothly on Android, iOS, Web, and Desktop environments.
+Comprehensive Asset Management: Custom in-app map pins, icons, and visual notification components.
+🛠️ Technologies and Libraries
+Framework: Flutter (Dart)
+Package Managers: Flutter Pub (pubspec.yaml), npm (package.json)
+🚀 Installation and Setup
+You can follow the steps below to test the project in your local environment:
 
-Hızlı Yenileme / Yeniden Başlat: Ekranlar ve veri akışı arasında hızlı geçiş sağlayan reset/restart kontrolleri.
+Clone the repository: git clone https://github.com/sacelikk/Deprem_Bildirim.git
+ cd Deprem_Bildirim
 
-Geniş Platform Desteği: Android, iOS, Web ve Masaüstü ortamlarında çalışabilen Flutter altyapısı.
+Fetch dependencies: flutter pub get
 
-Kapsamlı Varlık Yönetimi: Uygulama içi harita pinleri, ikonlar ve görsel bildirim bileşenleri.
+List available devices: flutter devices
 
-🛠️ Teknolojiler ve Kütüphaneler
-Framework: Flutter
+Run the application: flutter run
 
+📂 Directory Structure
+Deprem_Bildirim/ ├── android/ # Android build and configuration files ├── ios/ # iOS build and pod files ├── lib/ # Main application code (screens, services, models) ├── assets/ # Visual resources and custom icons ├── web/ # Web build outputs ├── pubspec.yaml # Flutter dependency definitions └── package.json # Project utility configurations
 
-Paket Yöneticileri: Flutter Pub (pubspec.yaml), npm (package.json)
-
-🚀 Kurulum ve Çalıştırma
-Depoyu klonlayın:
-git clone https://github.com/sacelikk/Deprem_Bildirim.git
-cd Deprem_Bildirim
-
-Bağımlılıkları yükleyin:
-flutter pub get
-
-Cihazları listeleyin:
-flutter devices
-
-Uygulamayı başlatın:
-flutter run
-
-📂 Dizin Yapısı
-Deprem_Bildirim/
-├── android/          # Android derleme ve konfigürasyon dosyaları
-├── ios/              # iOS derleme ve pod dosyaları
-├── lib/              # Ana uygulama kodları (ekranlar, servisler, modeller)
-├── assets/           # Görsel kaynaklar ve ikonlar
-├── web/              # Web derleme çıktıları
-├── pubspec.yaml      # Flutter bağımlılık tanımları
-└── package.json      # Proje yardımcı araç yapılandırmaları
-
-👥 Geliştiriciler
+👥 Developers
 @sacelikk
-
+@celikemirhan
+📄 License
+This project is an open-source initiative developed for personal and educational purposes.
 @celikemirhan
 
 📄 Lisans
